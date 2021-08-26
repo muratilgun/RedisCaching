@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RedisDeneme.BackgroundTasks;
 using RedisDeneme.Services;
 using StackExchange.Redis;
 
@@ -33,6 +34,8 @@ namespace RedisDeneme
             services.AddSingleton<IConnectionMultiplexer>(x => 
                 ConnectionMultiplexer.Connect(Configuration.GetValue<string>("RedisConnection")));
             services.AddSingleton<ICacheService, RedisCacheService>();
+
+            services.AddHostedService<RedisSubscriber>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
